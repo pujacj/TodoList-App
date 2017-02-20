@@ -2,7 +2,7 @@ package com.hm.routes
 
 import java.util
 
-import com.hm.connector.Mysqlclient
+import com.hm.connector.MysqlClient
 import spray.http.HttpCookie
 import spray.http.MediaTypes.`text/html`
 import spray.json.JsString
@@ -24,9 +24,16 @@ trait Routes extends HttpService
 
 
   val route =
+
     path("addTodo")
+    {
+      addToDo
+    }~ path("editTodo")
+    {
+      updateTodo
+    }~ path("deleteTodo")
   {
-    addToDo
+    deleteToDo
   }~path("login")
   {
     login
@@ -58,6 +65,10 @@ trait Routes extends HttpService
         }
       }
     }
+
+
+
+
 
 
 

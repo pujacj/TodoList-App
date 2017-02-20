@@ -10,6 +10,7 @@ import spray.routing.HttpService
 trait GroupsHandler extends HttpService{
 
 
+
   /*
   *
   * Json Parameter = {"id":"1",
@@ -81,6 +82,7 @@ def createGroup(  gName:String,userId:Int )={
     val status = Mysqlclient.executeQuery("insert into grp_users(u_id , g_id , admin_role) values ('"+uId+"','"+gId+"''"+role+"')")
     status
   }
+
 
 
 }

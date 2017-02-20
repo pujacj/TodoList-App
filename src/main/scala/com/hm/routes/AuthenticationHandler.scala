@@ -1,6 +1,6 @@
 package com.hm.routes
 
-import com.hm.connector.Mysqlclient
+import com.hm.connector.MysqlClient
 import spray.http.HttpCookie
 import spray.json.JsString
 import spray.json._
@@ -66,7 +66,7 @@ trait AuthenticationHandler extends HttpService{
     complete("user Logged out")
   }
   def loginCheck(username:String,password:String)={
-    val rs = Mysqlclient.getResultSet("select * from user where user_name='"+username+"' AND password='"+password+"'")
+    val rs = MysqlClient.getResultSet("select * from user where user_name='"+username+"' AND password='"+password+"'")
     val response = if(rs.next()){
       (true,rs.getInt("u_id"))
 
@@ -78,7 +78,7 @@ trait AuthenticationHandler extends HttpService{
     response
   }
   def registerUser(name:String,userName:String,password:String)={
-    val rs=Mysqlclient.executeQuery("insert into user(name,user_name,password) values ('"+name+"','"+userName+"','"+password+"')")
+    val rs=MysqlClient.executeQuery("insert into user(name,user_name,password) values ('"+name+"','"+userName+"','"+password+"')")
     rs
   }
 
