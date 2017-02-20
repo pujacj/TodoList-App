@@ -5,7 +5,7 @@ import java.sql.{Connection, DriverManager, ResultSet}
 /**
   * Created by hari on 17/2/17.
   */
-object Mysqlclient {
+object MysqlClient {
 
   private val dbc = "jdbc:mysql://" + "127.0.0.1" + ":" + 3306 + "/" + "rest" + "?user=" + "root" + "&password=" + "root"
   classOf[com.mysql.jdbc.Driver]

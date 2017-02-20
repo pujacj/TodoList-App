@@ -1,6 +1,6 @@
 package com.hm.routes
 
-import com.hm.connector.Mysqlclient
+import com.hm.connector.MysqlClient
 import spray.json.{JsArray, JsNumber, JsObject, JsString}
 import spray.routing.HttpService
 import collection.JavaConversions._
@@ -21,7 +21,7 @@ trait UserHandler extends HttpService{
     case None => complete("No user logged in")
   }
   def userDashBoard(userID:Int):Array[(Int,String)]={
-    val rs = Mysqlclient.getResultSet("select * from todo where user_id="+userID+"")
+    val rs = MysqlClient.getResultSet("select * from todo where user_id="+userID+"")
     val result=new collection.mutable.ArrayBuffer[(Int,String)]
     while (rs.next())
     {
