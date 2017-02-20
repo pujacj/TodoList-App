@@ -1,6 +1,6 @@
 package com.hm.routes
 
-import com.hm.connector.Mysqlclient
+import com.hm.connector.MysqlClient
 import spray.json.{JsArray, JsNumber, JsString, _}
 import spray.routing.HttpService
 
@@ -74,12 +74,12 @@ trait GroupsHandler extends HttpService{
 //  }
 def createGroup(  gName:String,userId:Int )={
 
-   val groupId= Mysqlclient.insert("grp",Map("name"->gName))
- val status= Mysqlclient.executeQuery("insert into grp_users values("+userId+","+groupId+","+1+")")
+   val groupId= MysqlClient.insert("grp",Map("name"->gName))
+ val status= MysqlClient.executeQuery("insert into grp_users values("+userId+","+groupId+","+1+")")
   status
 }
   def addUsers(uId:Int , gId:Int , role:Int)={
-    val status = Mysqlclient.executeQuery("insert into grp_users(u_id , g_id , admin_role) values ('"+uId+"','"+gId+"''"+role+"')")
+    val status = MysqlClient.executeQuery("insert into grp_users(u_id , g_id , admin_role) values ('"+uId+"','"+gId+"''"+role+"')")
     status
   }
 
