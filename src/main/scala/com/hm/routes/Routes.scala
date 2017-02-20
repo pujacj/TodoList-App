@@ -42,7 +42,8 @@ trait Routes extends HttpService
       signup
 
     }~path("createGroup") {
-  createGroup
+      createGrp
+
 }~path("") {
 
       get {

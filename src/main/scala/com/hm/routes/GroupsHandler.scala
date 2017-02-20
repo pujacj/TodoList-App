@@ -1,8 +1,8 @@
 package com.hm.routes
 
-import spray.json.JsString
+import com.hm.connector.Mysqlclient
+import spray.json.{JsArray, JsNumber, JsString, _}
 import spray.routing.HttpService
-import spray.json._
 
 /**
   * Created by vishnu on 2/17/17.
@@ -20,24 +20,67 @@ trait GroupsHandler extends HttpService{
 
    }
   * */
-  def createGroup =  post{
+
+
+  def createGrp = optionalCookie("userName") {
+    case Some(nameCookie) => {
+      val userId = nameCookie.content.toInt
+
+
+    post {
+      entity(as[String]) {
+        body => {
+          val json = body.parseJson.asJsObject
+
+          val gName = json.getFields("gName").head.asInstanceOf[JsString].value
+          if (!createGroup(gName,userId)) {
+
+            complete("created successfuly")
+          }
+          else {
+            complete("group creation failed")
+          }
+        }
+      }
+    }
+    }
+    case None => complete("No user logged in")
+  }
+
+ /* def adduser = post{
+    entity(as[String]){
+      body=>{
+        val json = body.parseJson.asJsObject
+        val rs = Mysqlclient.getResultSet("select * from user where user_name='"+username+"' AND password='"+password+"'")
+
+      }
+    }
+  }*/
+
+  /*def addUsr = post{
     entity(as[String])
     {
       body=>{
-        val json=body.parseJson.asJsObject
-        val id = json.getFields("id").head.asInstanceOf[JsString].value
-        val gName=json.getFields("gName").head.asInstanceOf[JsString].value
-        val listOfUsers=json.getFields("").head.asInstanceOf[JsString].value
+        val json = body.parseJson.asJsObject
 
       }
-        complete("group created WIP")
-
     }
   }
-
+*/
 //  def createGroupApi(gName:String,noOfParticipants:Int, listOfUsers:Array[Int])= {
 //    val rs=Mysqlclient.executeQuery("insert into group values ("+1+",'"+gName+"','"++"')")
 //    rs
 //  }
+def createGroup(  gName:String,userId:Int )={
+
+   val groupId= Mysqlclient.insert("grp",Map("name"->gName))
+ val status= Mysqlclient.executeQuery("insert into grp_users values("+userId+","+groupId+","+1+")")
+  status
+}
+  def addUsers(uId:Int , gId:Int , role:Int)={
+    val status = Mysqlclient.executeQuery("insert into grp_users(u_id , g_id , admin_role) values ('"+uId+"','"+gId+"''"+role+"')")
+    status
+  }
+
 
 }
