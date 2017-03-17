@@ -1,15 +1,11 @@
 package com.hm.routes
-
-
-
 import spray.json.JsString
-import com.hm.connector.MysqlClient
 import spray.routing.HttpService
 import spray.json._
 import com.hm.connector.MysqlClient
 
 /**
-  * Created by vishnu on 2/17/17.
+  * Created by pooja on 2/17/17.
   */
 trait TodoHandler extends HttpService{
   def deleteToDo = post {
@@ -45,8 +41,6 @@ trait TodoHandler extends HttpService{
   }
 
 
-
-
   def addToDo=post{
 
     entity(as[String]) {
@@ -64,10 +58,6 @@ trait TodoHandler extends HttpService{
     }
 
   }
-
-
-
-
 
 
   def updateTodoApi(todo_id: Int, message: String) = {

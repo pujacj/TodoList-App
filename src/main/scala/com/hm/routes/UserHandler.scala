@@ -4,9 +4,9 @@ import com.hm.connector.MysqlClient
 import spray.json.{JsArray, JsNumber, JsObject, JsString}
 import spray.routing.HttpService
 import collection.JavaConversions._
-import collection.JavaConverters
+
 /**
-  * Created by vishnu on 2/17/17.
+  * Created by pooja on 2/17/17.
   */
 trait UserHandler extends HttpService{
 

@@ -5,8 +5,9 @@ import java.sql.{Connection, DriverManager, PreparedStatement, ResultSet}
 import scala.collection.mutable.ArrayBuffer
 
 /**
-  * Created by hari on 17/2/17.
+  * Created by pooja on 17/2/17.
   */
+
 object MysqlClient {
 
   private val dbc = "jdbc:mysql://" + "127.0.0.1" + ":" + 3306 + "/" + "rest" + "?user=" + "root" + "&password=" + "root"
@@ -78,7 +79,6 @@ object MysqlClient {
       case v: Int => preparedStatement.setInt(index, v)
       case v: Double => preparedStatement.setDouble(index, v)
       case v: String => preparedStatement.setString(index, v)
-
       case v: Array[Byte] => preparedStatement.setBytes(index, v)
       case v: Serializable => preparedStatement.setObject(index, v)
       case _ => preparedStatement.setString(index, value.toString)
